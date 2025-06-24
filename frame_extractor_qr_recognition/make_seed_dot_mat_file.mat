@@ -1,0 +1,26 @@
+% IMPORTANT
+
+% This script is for the windows PC that needs a seed .mat file 
+% with at least one line of data, otherwise the function locatecodes()
+% will not work.
+% 
+% Run this script BEFORE using the qr_from_python.mat script. The imagedir
+% directory must contain the jpg pic_for_seed.
+
+% IF YOU RUN THIS FILE ONCE YOU HAVE STARTED COLLECTING DATA
+% IT WILL DELETE THE DATA
+
+imagedir = "/Users/alexander/Documents/test_april_2005_delete_May/frame/";
+files = dir(fullfile(imagedir, '*.jpg'));
+files = {files.name}
+output_dir = '/Users/alexander/Documents/test_april_2005_delete_May/'; % specify where the csv will be saved
+
+T = [];
+
+im = imread(imagedir+files(1, 1));
+locateCodes(im, 'colMode', 2, 'thresh', 0.35, 'vis', 1);
+[ans.Date] = deal(string(datetime)); % add timestamp
+T = [T ; ans]; % append the new struct to table
+save(fullfile(output_dir, 'output.mat'), 'T');
+
+delete(imagedir+files(1, 1));

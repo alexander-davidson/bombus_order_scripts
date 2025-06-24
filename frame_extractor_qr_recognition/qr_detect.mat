@@ -1,0 +1,55 @@
+imagedir = "/Users/alexander/Documents/test_april_2005_delete_May/";
+files = dir(fullfile(imagedir, '*.pgm'));
+files = {files.name}
+output_dir = '/Users/alexander/Documents/test_april_2005_delete_May/'; % specify where the csv will be saved
+
+running = true; % loop to continuously read the image file (updated from live feed)
+
+% check if the matlab struct exists in the output directory
+% and if so, load it as struct, if not, create empty table
+if exist(fullfile(output_dir, 'output.mat'), 'file') == 2
+    ef = load(fullfile(output_dir, 'output.mat'));
+    T = ef.T;
+else
+    T = [];
+end
+
+% create figure for detecting keypress
+kFig = figure('Visible','on');
+
+while running == true
+    % use try because the script will close if it returns an error
+    % which it will do if the image is not clear
+    % this will bypass errors and continue the loop
+    try
+
+        im = imread(imagedir+files(1, 1));
+        locateCodes(im, 'colMode', 2, 'thresh', 0.35, 'vis', 0);
+        [ans.Date] = deal(string(datetime)); % add timestamp
+        T = [T ; ans]; % append the new struct to table
+	writetable(struct2table(T), [output_dir 'output.txt']); % output the updating file
+
+    catch ME
+
+    end
+
+    pause(0.01);  % Small pause to prevent the loop from using 100% CPU
+
+    % Check if a key is pressed
+    key = get(kFig, 'CurrentCharacter');
+
+    if ~isempty(key)  % If a key is pressed
+        % is q is pressed, stop the loop
+        if key == 'q'
+            running = false;  % Exit the loop if 'q' is pressed
+        end
+    end
+   
+end
+
+% save .mat file (needed for loading the old data between
+% recording sessions).
+
+save(fullfile(output_dir, 'output.mat'), 'T');
+close(kFig);
+

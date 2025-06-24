@@ -4,6 +4,8 @@ from datetime import datetime
 
 path = r'D:\ALEX\2025\pyprojects\get_frames\frames'
 
+# checking git from onedrive
+
 os.chdir(path)
 
 i = 1

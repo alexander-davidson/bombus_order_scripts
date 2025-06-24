@@ -6,6 +6,8 @@
 #include <avr/power.h>
 #endif
 
+// this is a test
+
 // which pin is outputs to LEDs
 #define PIN 12
 

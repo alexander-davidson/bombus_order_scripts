@@ -2,7 +2,8 @@ import os
 import cv2
 from datetime import datetime
 
-path = r'D:\ALEX\2025\pyprojects\get_frames\frames'
+# path = r'D:\ALEX\2025\pyprojects\get_frames\frames'
+path = r'D:\Order_Discrimination_Bombus\live_frame_storage' # 2.07 PC
 
 # checking git from onedrive
 

@@ -12,6 +12,8 @@ i = 1
 wait = 0
 
 video = cv2.VideoCapture(0)
+video.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+video.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
 while True:
     ret, img = video.read()

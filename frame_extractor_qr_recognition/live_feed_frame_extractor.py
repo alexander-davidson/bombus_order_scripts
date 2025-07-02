@@ -33,12 +33,12 @@ while True:
 
     # wait variable is to calculate waiting time
     wait = wait + 1
-    print(wait)
+    # print(wait)
     if key == ord('q'):
         break
     # when it reaches to 5000 milliseconds
     # we will save that frame in given folder
-    if wait == 5:
+    if wait == 10:
         filename = 'Frame_' + str(i) + '.jpg'
 
         # Save the images in given path

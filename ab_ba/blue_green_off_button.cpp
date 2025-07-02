@@ -13,7 +13,7 @@
 int number_of_rings = 2;
 
 // define how many LEDs there are in each
-int number_of_leds = 16;
+int number_of_leds = 7;
 
 // number of pixels (i.e. LEDs in ring, put number of LEDs in array times number arrays)
 #define NUMPIXELS number_of_leds* number_of_rings
@@ -27,7 +27,7 @@ unsigned long accumulator;   // counter from beggining of programme
 
 // Assign the periods for the colours in milliseconds
 const unsigned long period = 250;
-const unsigned long delay_period = 1000;
+const unsigned long delay_period = 1500;
 int intensity = 100;
 
 /////////////////////////////////////////////////////////
@@ -59,11 +59,11 @@ void loop() {
       pixels.fill(pixels.Color(0, intensity, 0), 0, number_of_leds*2);
       pixels.show();
     }
-    if ((accumulator - start_count > period*2) && (accumulator - start_count <= delay_period)){ // after second period and before 5x period show nothing. If period is one second it will be 1 sec blue, 1 sec green 3 sec nothing
+    if ((accumulator - start_count > period*2) && (accumulator - start_count <= period*3)){ // after second period and before 5x period show nothing. If period is one second it will be 1 sec blue, 1 sec green 3 sec nothing
       pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*2);
       pixels.show();
     }
-    if (accumulator - start_count > period*5){
+    if (accumulator - start_count > (period*3+delay_period)){
       start_count = accumulator;
     }
   }
@@ -78,11 +78,11 @@ void loop() {
       pixels.fill(pixels.Color(0, 0, intensity), 0, number_of_leds*2);
       pixels.show();
     }
-    if ((accumulator - start_count > period*2) && (accumulator - start_count <= delay_period)){
+    if ((accumulator - start_count > period*2) && (accumulator - start_count <= period*3)){
       pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*2);
       pixels.show();
     }
-    if (accumulator - start_count > period*5){
+    if (accumulator - start_count > (period*3+delay_period)){
       start_count = accumulator;
     }
   }

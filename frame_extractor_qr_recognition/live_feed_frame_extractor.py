@@ -33,6 +33,7 @@ try:
         # wait for user to press any key
         #key = cv2.waitKey(100)
 
+
         # wait variable is to calculate waiting time
         # wait = wait + 1
         # print(wait)

@@ -4,8 +4,8 @@ import time
 from datetime import datetime
 
 # path = r'D:\ALEX\2025\pyprojects\get_frames\frames'
-# path = r'D:\Order_Discrimination_Bombus\live_frame_storage' # 2.07 PC
-path = r'/Users/alexander/Documents/test_april_2005_delete_May/frame'
+path = r'D:\Order_Discrimination_Bombus\live_frame_storage' # 2.07 PC
+# path = r'/Users/alexander/Documents/test_april_2005_delete_May/frame'
 
 # checking git from onedrive
 
@@ -52,7 +52,7 @@ try:
             #i = 1
         filename = 'Frame.jpg'
         cv2.imwrite(filename, img)
-        time.sleep(0.5)
+        time.sleep(0.1)
 except KeyboardInterrupt:
     print("ended")
 

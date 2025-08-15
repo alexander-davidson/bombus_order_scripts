@@ -27,7 +27,7 @@ while running == true
         locateCodes(im, 'colMode', 2, 'thresh', 0.35, 'vis', 0);
         [ans.Date] = deal(string(datetime)); % add timestamp
         T = [T ; ans]; % append the new struct to table
-	writetable(struct2table(T), [output_dir 'output.txt']); % output the updating file
+		writetable(struct2table(T), [output_dir 'output.txt']); % output the updating file
 
     catch ME
 

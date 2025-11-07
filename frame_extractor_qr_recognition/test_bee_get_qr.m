@@ -6,4 +6,16 @@ files = dir(fullfile(imagedir, '*.png'));
 files = {files.name}
 
 im = imread(imagedir+files(1, 1));
-locateCodes(im, 'vis', 1);
+% locateCodes(im, 'vis', 1);
+
+manual_thresh = 0.2;
+
+for i = 1:500;
+    try
+        locateCodes(im, 'thresh', manual_thresh, 'vis', 1);
+        disp(ans.number);
+
+    catch ME
+        manual_thresh = manual_thresh + 0.001;
+    end
+end

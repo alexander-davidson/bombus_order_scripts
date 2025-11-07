@@ -5,6 +5,7 @@ files = dir(fullfile(imagedir, '*.png'));
 % check filetype and make sure the code matches
 files = {files.name}
 
+disp(files);
 im = imread(imagedir+files(1, 1));
 % locateCodes(im, 'vis', 1);
 

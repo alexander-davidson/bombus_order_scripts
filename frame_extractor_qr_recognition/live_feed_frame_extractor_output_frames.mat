@@ -1,0 +1,82 @@
+% xvi = VideoReader('normal_paper_large.mp4')
+% trackBEEtagVideoP(xvi,10, 0.5, 5)
+
+
+% im = imread('4mm.pgm');
+%im = imread('/Users/alexander/Documents/test_april_2005_delete_May/4mm.pgm')
+%locateCodes(im, 'colMode', 2, 'thresh', 0.35);
+% identifies all 10 4mm with 0.33 - 0.4 threshold
+% 0.34 works for 5mm
+% 0.41 for 6mm
+% 0.40 for 7mm
+
+imagedir = "/Users/alexander/Documents/testing_output_frames/";
+files = dir(fullfile(imagedir, '*.jpg'));
+files = {files.name}
+output_dir = '/Users/alexander/Documents/testing_output_frames/output/'; % specify where the csv will be saved
+
+running = true; % loop to continuously read the image file (updated from live feed)
+
+frame_index = 1;
+
+% check if the matlab struct exists in the output directory
+% and if so, load it as struct, if not, create empty table
+if exist(fullfile(output_dir, 'output.mat'), 'file') == 2
+    ef = load(fullfile(output_dir, 'output.mat'));
+    T = ef.T;
+else
+    T = [];
+end
+
+
+% create figure for detecting keypress
+kFig = figure('Visible','on');
+
+while running == true
+    % use try because the script will close if it returns an error
+    % which it will do if the image is not clear
+    % this will bypass errors and continue the loop
+    try
+        output_filename = sprintf("output_frame_%d.jpg", frame_index);
+
+
+        frame = getframe(gcf);               % capture the figure window
+        annotated = frame.cdata;             % extract the image data
+        imwrite(annotated, fullfile(output_dir, output_filename));
+
+
+        im = imread(imagedir+files(1, 1));
+        locateCodes(im, 'colMode', 0, 'thresh', 0.37, 'vis', 1);
+        [ans.Date] = deal(string(datetime)); % add timestamp
+        T = [T ; ans]; % append the new struct to table
+        writetable(struct2table(T), [output_dir 'output.txt']);
+        %imwrite(im, 'output_frame.jpg');
+        %imwrite(im, fullfile(output_dir, output_filename));
+        frame_index = frame_index + 1;
+
+
+
+    catch ME
+        %continue
+
+    end
+
+    pause(0.01);  % Small pause to prevent the loop from using 100% CPU
+
+    % Check if a key is pressed
+    key = get(kFig, 'CurrentCharacter');
+
+    if ~isempty(key)  % If a key is pressed
+        % is q is pressed, stop the loop
+        if key == 'q'
+            running = false;  % Exit the loop if 'q' is pressed
+        end
+    end
+   
+end
+
+% save txt file AND .mat file (needed for loading the old data between
+% recording sessions).
+ 
+
+close(kFig);

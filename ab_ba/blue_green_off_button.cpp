@@ -27,7 +27,7 @@ unsigned long accumulator;   // counter from beggining of programme
 
 // Assign the periods for the colours in milliseconds
 const unsigned long period = 250;
-const unsigned long delay_period = 1500;
+const unsigned long delay_period = 2500;
 int intensity = 255;
 
 /////////////////////////////////////////////////////////

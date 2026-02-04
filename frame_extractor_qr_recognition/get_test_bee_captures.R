@@ -1,9 +1,15 @@
 rm(list = ls())
 
+# function to reduce qr_data to relevant id
+get_test_rows <- function(id) {
+  x <- as.character(id)
+  return(my_data[my_data$number == id, ])
+}
+
 # setwd
 setwd()
 
-my_data <- read.csv('output_27_jan.txt', sep = ',', header = T) # load correct data
+my_data <- read.csv('output.txt', sep = ',', header = T) # load correct data
 
 # remove 1st row
 my_data <- my_data[-1, ] 
@@ -16,6 +22,14 @@ my_data <- my_data[ , c('number', 'date')]
 
 # convert ids to string and date to datatype: date
 my_data$date <- as.POSIXlt(my_data$date, format = "%d-%b-%Y %H:%M:%S")
+
+# order based on number
+my_data <- my_data[order(my_data$number), ]
+
+# convert number to string
+my_data$number <- as.character(my_data$number)
+
+my_data <- get_test_rows(61)
 
 # remove entries that fall within an exclusion window of time
 to_keep <- logical(nrow(my_data)) # make logical (bool) list length of my_data
@@ -36,18 +50,6 @@ for (i in 2:nrow(my_data)) {
 
 my_data <- my_data[to_keep, ] # update dataframe only with rows at index of bool-list == TRUE
 
-# remove ids with less that 10 captures
-to_remove <- vector()
-for (i in my_data$number) {
-  if (nrow(my_data[my_data$number == i, ]) < 10) {
-    to_remove <- append(to_remove, i)
-  }
-}
-
-`%nin%` <- Negate(`%in%`) # creates 'not it'
-my_data <- subset(my_data, number %nin% to_remove) # remove those ids
-
-
 check_bee <- function(id) {
   bee_data <- my_data[my_data$number == id, ]
   caps <- nrow(bee_data)
@@ -57,8 +59,5 @@ check_bee <- function(id) {
   
   print(paste('total captures for bee', id, ':', caps, 'and total captures today:', today_caps))
 }
-
-
-
 
 

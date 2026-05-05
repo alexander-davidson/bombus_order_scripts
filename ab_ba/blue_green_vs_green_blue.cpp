@@ -16,11 +16,15 @@ int number_of_rings = 2;
 int number_of_leds = 7;
 
 // define duration for colours
-int col_duration_val = 250;
-// define duration for off state
-int del_val = 1500; 
+int col_duration_val = 1000;
 
-int intensity = 100;
+// inter-colour delay
+int inter_colour_delay = 100;
+
+// define duration for off state
+int del_val = 5000; 
+
+int intensity = 250;
 
 // number of pixels (i.e. LEDs in ring, put number of LEDs in array times number arrays)
 #define NUMPIXELS number_of_leds* number_of_rings
@@ -35,11 +39,19 @@ void setup() {
 }
 
 void loop() {
+
+  // first colour both LEDs
   pixels.fill(pixels.Color(0, 0, intensity), 0, 7); // rgb, starting led, how many leds from starting led
   pixels.fill(pixels.Color(0, intensity, 0), 7, 7);
   pixels.show();
-  delay(col_duration_val);
+  delay(col_duration_val);    
 
+  // inter-colour delay
+  pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+  pixels.show();
+  delay(inter_colour_delay);
+
+  // second colour
   pixels.fill(pixels.Color(0, intensity, 0), 0, 7);
   pixels.fill(pixels.Color(0, 0, intensity), 7, 7);
   pixels.show();
@@ -49,6 +61,3 @@ void loop() {
   pixels.show();
   delay(del_val);
 }
-
-
-

@@ -19,12 +19,12 @@ int number_of_leds = 7;
 int col_duration_val = 1000;
 
 // inter-colour delay
-int inter_colour_delay = 100;
+int inter_colour_delay = 250;
 
 // define duration for off state
 int del_val = 5000; 
 
-int intensity = 250;
+int intensity = 255;
 
 // number of pixels (i.e. LEDs in ring, put number of LEDs in array times number arrays)
 #define NUMPIXELS number_of_leds* number_of_rings

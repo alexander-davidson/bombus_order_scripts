@@ -1,15 +1,33 @@
+library(dplyr)
 rm(list = ls())
+
+# setwd
+setwd('working_dir_with_qr_txt_file')
+
+full_data <- read.csv('output.txt', sep = ',', header = T) # load correct data
+
+
+bee = 320
+
+my_data <- full_data
+
 
 # function to reduce qr_data to relevant id
 get_test_rows <- function(id) {
   x <- as.character(id)
   return(my_data[my_data$number == id, ])
 }
+check_bee <- function(id) {
+  bee_data <- my_data[my_data$number == id, ]
+  caps <- nrow(bee_data)
+  
+  today_data <- bee_data[bee_data$date$mday == as.POSIXlt(Sys.time())$mday, ]
+  today_caps <- nrow(today_data)
+  
+  print(paste('total captures for bee', id, ':', caps, 'and total captures today:', today_caps))
+}
 
-# setwd
-setwd()
 
-my_data <- read.csv('output.txt', sep = ',', header = T) # load correct data
 
 # remove 1st row
 my_data <- my_data[-1, ] 
@@ -29,7 +47,8 @@ my_data <- my_data[order(my_data$number), ]
 # convert number to string
 my_data$number <- as.character(my_data$number)
 
-my_data <- get_test_rows(61)
+my_data <- get_test_rows(bee)
+
 
 # remove entries that fall within an exclusion window of time
 to_keep <- logical(nrow(my_data)) # make logical (bool) list length of my_data
@@ -50,14 +69,13 @@ for (i in 2:nrow(my_data)) {
 
 my_data <- my_data[to_keep, ] # update dataframe only with rows at index of bool-list == TRUE
 
-check_bee <- function(id) {
-  bee_data <- my_data[my_data$number == id, ]
-  caps <- nrow(bee_data)
-  
-  today_data <- bee_data[bee_data$date$mday == as.POSIXlt(Sys.time())$mday, ]
-  today_caps <- nrow(today_data)
-  
-  print(paste('total captures for bee', id, ':', caps, 'and total captures today:', today_caps))
-}
+check_bee(bee)
+min(my_data$date)
 
 
+       
+# my_data$date <- as.character(my_data$date)
+# s <- ddply(my_data, 'number', summarise,
+#            caps = length(date))
+# s <- subset(s, caps > 20)
+# s[order(s$caps, decreasing = T), ]

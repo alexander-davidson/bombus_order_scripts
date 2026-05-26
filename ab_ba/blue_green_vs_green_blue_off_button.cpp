@@ -26,8 +26,11 @@ unsigned long start_count;   // takes initial start of Millis()
 unsigned long accumulator;   // counter from beggining of programme 
 
 // Assign the periods for the colours in milliseconds
-const unsigned long period = 250;
-const unsigned long delay_period = 2500;
+//unsigned long accumulator = 0;
+//unsigned long start_count = 250;
+unsigned long period = 1000;
+unsigned long inter_col_del = 250;
+const unsigned long delay_period = 5000;
 int intensity = 255;
 
 /////////////////////////////////////////////////////////
@@ -48,43 +51,65 @@ void setup() {
 }
 
 void loop() {
-  if (but_val == 1){
-    accumulator = millis();  // set accumultaor to current millisecond after start of programme
 
-    if (accumulator - start_count <= period){ // for first period show blue
-      pixels.fill(pixels.Color(0, 0, intensity), 0, number_of_leds*2);
-      pixels.show();
+  
+  if (but_val == 1){
+
+    accumulator = millis();
+    // first colour both LEDs
+    if (accumulator - start_count <= period) {
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 7); // rgb, starting led, how many leds from starting led
+        pixels.fill(pixels.Color(0, intensity, 0), 7, 7);
+        pixels.show(); 
+    } 
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)){
+        // inter-colour delay
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
     }
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period*2)){ // after first period and before second show green
-      pixels.fill(pixels.Color(0, intensity, 0), 0, number_of_leds*2);
-      pixels.show();
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+        // second colour
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 7);
+        pixels.fill(pixels.Color(0, 0, intensity), 7, 7);
+        pixels.show();
     }
-    if ((accumulator - start_count > period*2) && (accumulator - start_count <= period*3)){ // after second period and before 5x period show nothing. If period is one second it will be 1 sec blue, 1 sec green 3 sec nothing
-      pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*2);
-      pixels.show();
+    if (accumulator - start_count > period*2 + inter_col_del) {
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
     }
-    if (accumulator - start_count > (period*3+delay_period)){
+    if (accumulator - start_count > inter_col_del + period * 7){
       start_count = accumulator;
     }
+
   }
   if (but_val == 2){
-    accumulator = millis();  // set accumultaor to current millisecond after start of programme
 
-    if (accumulator - start_count <= period){
-      pixels.fill(pixels.Color(0, intensity, 0), 0, number_of_leds*2);
-      pixels.show();
+    accumulator = millis();
+    // first colour both LEDs
+    if (accumulator - start_count <= period) {
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 7); // rgb, starting led, how many leds from starting led
+        pixels.fill(pixels.Color(0, 0, intensity), 7, 7);
+        pixels.show(); 
     }
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period*2)){
-      pixels.fill(pixels.Color(0, 0, intensity), 0, number_of_leds*2);
-      pixels.show();
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+        // inter-colour delay
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
     }
-    if ((accumulator - start_count > period*2) && (accumulator - start_count <= period*3)){
-      pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*2);
-      pixels.show();
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+        // second colour
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 7);
+        pixels.fill(pixels.Color(0, intensity, 0), 7, 7);
+        pixels.show();
     }
-    if (accumulator - start_count > (period*3+delay_period)){
+    if (accumulator - start_count > period*2 + inter_col_del) {
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
+    }
+    if (accumulator - start_count > inter_col_del + period * 7){
       start_count = accumulator;
     }
+
   }
   if (but_val == 3){
     pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*number_of_rings); // parameters: RGB, starting pixel, number of pixels to fill from starting pixel
@@ -103,6 +128,3 @@ void loop() {
   }
 
 }
-
-
-

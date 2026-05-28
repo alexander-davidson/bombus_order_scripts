@@ -58,8 +58,7 @@ void loop() {
     accumulator = millis();
     // first colour both LEDs
     if (accumulator - start_count <= period) {
-        pixels.fill(pixels.Color(0, 0, intensity), 0, 7); // rgb, starting led, how many leds from starting led
-        pixels.fill(pixels.Color(0, intensity, 0), 7, 7);
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     } 
     if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)){
@@ -69,8 +68,7 @@ void loop() {
     }
     if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
         // second colour
-        pixels.fill(pixels.Color(0, intensity, 0), 0, 7);
-        pixels.fill(pixels.Color(0, 0, intensity), 7, 7);
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
     }
     if (accumulator - start_count > period*2 + inter_col_del) {
@@ -87,8 +85,7 @@ void loop() {
     accumulator = millis();
     // first colour both LEDs
     if (accumulator - start_count <= period) {
-        pixels.fill(pixels.Color(0, intensity, 0), 0, 7); // rgb, starting led, how many leds from starting led
-        pixels.fill(pixels.Color(0, 0, intensity), 7, 7);
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     }
     if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
@@ -98,8 +95,7 @@ void loop() {
     }
     if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
         // second colour
-        pixels.fill(pixels.Color(0, 0, intensity), 0, 7);
-        pixels.fill(pixels.Color(0, intensity, 0), 7, 7);
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
         pixels.show();
     }
     if (accumulator - start_count > period*2 + inter_col_del) {
@@ -111,18 +107,74 @@ void loop() {
     }
 
   }
-  if (but_val == 3){
+
+  if (but_val == 3){ //  aa
+
+    accumulator = millis();
+    // first colour both LEDs
+    if (accumulator - start_count <= period) {
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 14); // rgb, starting led, how many leds from starting led
+        pixels.show(); 
+    }
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+        // inter-colour delay
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
+    }
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+        // second colour
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 7);
+        pixels.show();
+    }
+    if (accumulator - start_count > period*2 + inter_col_del) {
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
+    }
+    if (accumulator - start_count > inter_col_del + period * 7){
+      start_count = accumulator;
+    }
+
+  }
+
+  if (but_val == 4){ // bb
+
+    accumulator = millis();
+    // first colour both LEDs
+    if (accumulator - start_count <= period) {
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 14); // rgb, starting led, how many leds from starting led
+        pixels.show(); 
+    }
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+        // inter-colour delay
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
+    }
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+        // second colour
+        pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
+        pixels.show();
+    }
+    if (accumulator - start_count > period*2 + inter_col_del) {
+        pixels.fill(pixels.Color(0, 0, 0), 0, 14);
+        pixels.show();
+    }
+    if (accumulator - start_count > inter_col_del + period * 7){
+      start_count = accumulator;
+    }
+
+  }
+  if (but_val == 5){
     pixels.fill(pixels.Color(0, 0, 0), 0, number_of_leds*number_of_rings); // parameters: RGB, starting pixel, number of pixels to fill from starting pixel
     pixels.show();
   }
 
   reading = digitalRead(button);
 
-  if (reading == HIGH && but_val != 3 && millis() - but_time > debounce){
+  if (reading == HIGH && but_val != 5 && millis() - but_time > debounce){
    but_val += 1;
    but_time = millis();
   }
-  else if (reading == HIGH && but_val == 3 && millis() - but_time > debounce){
+  else if (reading == HIGH && but_val == 5 && millis() - but_time > debounce){
    but_val = 1;
    but_time = millis();
   }

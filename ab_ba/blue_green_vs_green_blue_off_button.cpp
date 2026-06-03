@@ -123,7 +123,7 @@ void loop() {
     }
     if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
         // second colour
-        pixels.fill(pixels.Color(0, intensity, 0), 0, 7);
+        pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
     }
     if (accumulator - start_count > period*2 + inter_col_del) {

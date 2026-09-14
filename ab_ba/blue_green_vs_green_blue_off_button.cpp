@@ -29,7 +29,6 @@ unsigned long accumulator;   // counter from beggining of programme
 //unsigned long accumulator = 0;
 //unsigned long start_count = 250;
 unsigned long period = 250;
-unsigned long inter_col_del = 0;
 const unsigned long delay_period = 1500;
 int intensity = 100;
 
@@ -66,7 +65,7 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
@@ -93,7 +92,7 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
         pixels.show();
@@ -121,7 +120,7 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
@@ -149,7 +148,7 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
         pixels.show();

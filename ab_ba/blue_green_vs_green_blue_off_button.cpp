@@ -28,10 +28,10 @@ unsigned long accumulator;   // counter from beggining of programme
 // Assign the periods for the colours in milliseconds
 //unsigned long accumulator = 0;
 //unsigned long start_count = 250;
-unsigned long period = 1000;
-unsigned long inter_col_del = 250;
-const unsigned long delay_period = 5000;
-int intensity = 255;
+unsigned long period = 250;
+unsigned long inter_col_del = 0;
+const unsigned long delay_period = 1500;
+int intensity = 100;
 
 /////////////////////////////////////////////////////////
 /// FOR BUTTONS /////////////////////////////////////////
@@ -61,21 +61,21 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     } 
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)){
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period)){
         // inter-colour delay
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > period*2 + inter_col_del) {
+    if (accumulator - start_count > period*2) {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > inter_col_del + period * 7){
+    if (accumulator - start_count > period * 7){
       start_count = accumulator;
     }
 
@@ -88,21 +88,21 @@ void loop() {
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     }
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period)) {
         // inter-colour delay
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > period*2 + inter_col_del) {
+    if (accumulator - start_count > period*2) {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > inter_col_del + period * 7){
+    if (accumulator - start_count > period * 7){
       start_count = accumulator;
     }
 
@@ -116,21 +116,21 @@ void loop() {
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     }
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period)) {
         // inter-colour delay
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, intensity, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > period*2 + inter_col_del) {
+    if (accumulator - start_count > period*2) {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > inter_col_del + period * 7){
+    if (accumulator - start_count > period * 7){
       start_count = accumulator;
     }
 
@@ -144,21 +144,21 @@ void loop() {
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14); // rgb, starting led, how many leds from starting led
         pixels.show(); 
     }
-    if ((accumulator - start_count > period) && (accumulator - start_count <= period + inter_col_del)) {
+    if ((accumulator - start_count > period) && (accumulator - start_count <= period)) {
         // inter-colour delay
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= inter_col_del + period * 2)) {
+    if ((accumulator - start_count > period + inter_col_del) && (accumulator - start_count <= period * 2)) {
         // second colour
         pixels.fill(pixels.Color(0, 0, intensity), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > period*2 + inter_col_del) {
+    if (accumulator - start_count > period*2) {
         pixels.fill(pixels.Color(0, 0, 0), 0, 14);
         pixels.show();
     }
-    if (accumulator - start_count > inter_col_del + period * 7){
+    if (accumulator - start_count > period * 7){
       start_count = accumulator;
     }
 
